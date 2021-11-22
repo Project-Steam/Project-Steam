@@ -57,7 +57,7 @@ MAINTAINERS
 
 Current maintainers:
 * Laura van den Dikkenberg - CSC
-* Serhat Caliskan
+* Serhat Caliskan - BIM
 * Liam Kortekaas
 * Steven Buter
 * Onno de Jong
