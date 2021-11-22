@@ -56,7 +56,7 @@ MAINTAINERS
 -----------
 
 Current maintainers:
-* Laura van den Dikkenberg
+* Laura van den Dikkenberg - CSC
 * Serhat Caliskan
 * Liam Kortekaas
 * Steven Buter
