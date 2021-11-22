@@ -57,7 +57,7 @@ MAINTAINERS
 
 Current maintainers:
 * Laura van den Dikkenberg
-* Serhat Caliskan likes dicks
+* Serhat Caliskan - BIM
 * Liam Kortekaas
 * Steven Buter
 * Onno de Jong
