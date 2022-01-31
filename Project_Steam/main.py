@@ -42,7 +42,13 @@ def create_main_menu():
 
     # Create a button to open menu
     calendar_button = Button(text='Plan a game session', command=lambda: create_calander())
-    calendar_button.pack(ipady=10, expand=True)
+    calendar_button.pack(expand=True)
+
+    friend_group = Button(text='Create friend group')
+    friend_group.pack(expand=True)
+
+    favorite_games = Button(text='Select and view favorite games')
+    favorite_games.pack(expand=True)
 
     root.mainloop()
 
@@ -53,7 +59,7 @@ def create_calander():
     root.title('Create a play session')
 
     window_width = 625
-    window_height = 600
+    window_height = 625
 
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
@@ -173,9 +179,10 @@ def see_sessions():
         text_widget.insert(INSERT, i)
     file.close()
 
-
 def get_steam_friends():
-    friend_steam_ids = ['NotABot42069', 'ImNotABotITellYou1234', 'ImAsheep', 'OriginalName', 'Big Manly Man']
+    friend_steam_ids = []
+    for i in range(11):
+         friend_steam_ids.append(i)
     return friend_steam_ids
 
 
