@@ -2,6 +2,7 @@ from tkinter import *
 import json
 from tkcalendar import Calendar
 from tkinter import *
+from AI import quicksortcaller
 
 time_hour = []
 minutes_time = []
@@ -22,7 +23,6 @@ def start_up():
 
     for i in data:
         list_of_game_names.append(i['name'])
-    list_of_game_names.sort()
 
 
 def create_main_menu():
@@ -113,6 +113,7 @@ def create_calander():
 
     # Friends
     global friend_name
+    quicksortcaller(steam_friends)
     friend_name = StringVar(root)
     friend_name.set(steam_friends[0])
 
@@ -127,22 +128,27 @@ def create_calander():
 
     # Games
     global game_name
+    sortedgames = getsortedgames()
+
     select_games_label = Label(root, text="Select a game: ")
     select_games_label.pack(side='left')
     select_games_label.place(y=320)
 
     game_name = StringVar(root)
-    game_name.set(list_of_game_names[0])
+    game_name.set(sortedgames[0])
 
-    game_choice = OptionMenu(root, game_name, *list_of_game_names)
+    game_choice = OptionMenu(root, game_name, *sortedgames)
     game_choice.pack(side='left')
     game_choice.place(y=315, x=100)
+
+    game_search = Entry(root, text="enter your game here")
+    game_search.place(y=320, x=450)
 
     # Show sessions
     global text_widget
     text_widget = Text(root, height=5, width=75)
     text_widget.pack(side='left')
-    scrollbar = Scrollbar(root).pack(side='right')
+    Scrollbar(root).pack(side='right')
     root.mainloop()
 
 
@@ -168,6 +174,22 @@ def see_sessions():
 def get_steam_friends():
     friend_steam_ids = ['NotABot42069', 'ImNotABotITellYou1234', 'ImAsheep', 'OriginalName', 'Big Manly Man']
     return friend_steam_ids
+
+
+def sortgamestxt():
+    global list_of_game_names
+    with open("sortedgames.txt", "w") as f:
+        quicksortcaller(list_of_game_names)
+        f.write("\n".join(list_of_game_names))
+
+def getsortedgames():
+    games = []
+    with open("sortedgames.txt", "r") as sortedgames:
+        sortedgames = list(sortedgames)
+        for game in sortedgames:
+            games.append(game.split("\n")[0])
+
+    return games
 
 
 steam_friends = get_steam_friends()
