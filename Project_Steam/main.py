@@ -170,9 +170,10 @@ def see_sessions():
         text_widget.insert(INSERT, i)
     file.close()
 
-
 def get_steam_friends():
-    friend_steam_ids = ['NotABot42069', 'ImNotABotITellYou1234', 'ImAsheep', 'OriginalName', 'Big Manly Man']
+    friend_steam_ids = []
+    for i in range(11):
+         friend_steam_ids.append(i)
     return friend_steam_ids
 
 
