@@ -1,4 +1,3 @@
-from tkinter import *
 import json
 from tkcalendar import Calendar
 from tkinter import *
@@ -49,6 +48,7 @@ def create_main_menu():
 
 
 def create_calander():
+    global root
     root = Tk()
     root.title('Create a play session')
 
@@ -137,12 +137,15 @@ def create_calander():
     game_name = StringVar(root)
     game_name.set(sortedgames[0])
 
+    global game_choice
+    global game_search
     game_choice = OptionMenu(root, game_name, *sortedgames)
     game_choice.pack(side='left')
     game_choice.place(y=315, x=100)
 
     game_search = Entry(root, text="enter your game here")
     game_search.place(y=320, x=450)
+    game_search.bind("<Return>", searchgames)
 
     # Show sessions
     global text_widget
@@ -182,6 +185,7 @@ def sortgamestxt():
         quicksortcaller(list_of_game_names)
         f.write("\n".join(list_of_game_names))
 
+
 def getsortedgames():
     games = []
     with open("sortedgames.txt", "r") as sortedgames:
@@ -189,6 +193,34 @@ def getsortedgames():
         for game in sortedgames:
             games.append(game.split("\n")[0])
 
+    return games
+
+
+def searchgames(key):
+    global root
+    global game_choice
+    global game_search
+    game_choice.destroy()
+
+    new_options = searchgame(game_search.get())
+
+    game_name.set(new_options[0])
+    game_choice = OptionMenu(root, game_name, *new_options)
+    game_choice.place(y=315, x=100)
+    print("working")
+
+
+def searchgame(str):
+    alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u",
+                "v", "w", "x", "y", "z", ]
+
+    games = []
+    for x in getsortedgames():
+        if str in x:
+            games.append(x)
+
+    if len(games) < 1:
+        return ["No Results Match Your Query"]
     return games
 
 
