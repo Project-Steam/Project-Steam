@@ -202,21 +202,18 @@ def searchgames(key):
     global game_search
     game_choice.destroy()
 
-    new_options = searchgame(game_search.get())
+    new_options = searchgame(game_search.get().lower())
+    quicksortcaller(new_options)
 
     game_name.set(new_options[0])
     game_choice = OptionMenu(root, game_name, *new_options)
     game_choice.place(y=315, x=100)
-    print("working")
 
 
-def searchgame(str):
-    alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u",
-                "v", "w", "x", "y", "z", ]
-
+def searchgame(query):
     games = []
     for x in getsortedgames():
-        if str in x:
+        if query in x.lower():
             games.append(x)
 
     if len(games) < 1:
