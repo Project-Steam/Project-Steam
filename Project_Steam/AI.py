@@ -1,7 +1,4 @@
-import random
-from tkinter import *
-from threading import *
-
+import json
 
 def swap(lst, x, y):
     global swap1, swap2
@@ -73,3 +70,72 @@ def letterwaarde(woord1, woord2):
 def quicksortcaller(arr):
     quicksort(arr, 0, len(arr) - 1)
 
+
+def allgameslength():
+    with open("sortedgames.txt", "r") as f:
+        return len(f.readlines())
+
+def hatedgame():
+    max = [0, "game"]
+    steam_files = open('steam.json')
+    data = json.load(steam_files)
+    for game in data:
+        if game['negative_ratings'] > max[0]:
+            max[0] = game['negative_ratings']
+            max[1] = game['name']
+
+    return max
+
+
+def lovedgame():
+    max = [0, "game"]
+    steam_files = open('steam.json')
+    data = json.load(steam_files)
+    for game in data:
+        if game['positive_ratings'] > max[0]:
+            max[0] = game['positive_ratings']
+            max[1] = game['name']
+
+    return max
+
+
+def mostplayedgame():
+    played = [0, "game"]
+    steam_files = open('steam.json')
+    data = json.load(steam_files)
+    for game in data:
+        owners = game["owners"].split("-")
+        owners = int(owners[1]) + int(owners[0]) / 2
+        playtime = int(game['average_playtime'])
+        if playtime * owners > played[0]:
+            played[0] = int(playtime * owners)
+            played[1] = game['name']
+
+    return played
+
+
+def leastplayedgame():
+    played = [99999999, "game"]
+    steam_files = open('steam.json')
+    data = json.load(steam_files)
+    for game in data:
+        owners = game["owners"].split("-")
+        owners = int(owners[1]) + int(owners[0]) / 2
+        playtime = int(game['average_playtime'])
+        if playtime * owners < played[0]:
+            played[0] = int(playtime * owners)
+            played[1] = game['name']
+
+    return played
+
+
+def mostexpensivegame():
+    max = [0, "game"]
+    steam_files = open('steam.json')
+    data = json.load(steam_files)
+    for game in data:
+        if game['price'] > max[0]:
+            max[0] = game['price']
+            max[1] = game['name']
+
+    return max

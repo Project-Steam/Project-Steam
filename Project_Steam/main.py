@@ -1,7 +1,7 @@
 import json
 from tkcalendar import Calendar
 from tkinter import *
-from AI import quicksortcaller
+import AI
 
 time_hour = []
 minutes_time = []
@@ -44,7 +44,7 @@ def create_main_menu():
     calendar_button = Button(text='Plan a game session', command=lambda: create_calander())
     calendar_button.pack(expand=True)
 
-    friend_group = Button(text='Create friend group')
+    friend_group = Button(text='Game statistics', command=gamestatistics)
     friend_group.pack(expand=True)
 
     favorite_games = Button(text='Select and view favorite games')
@@ -188,7 +188,7 @@ def get_steam_friends():
 def sortgamestxt():
     global list_of_game_names
     with open("sortedgames.txt", "w") as f:
-        quicksortcaller(list_of_game_names)
+        AI.quicksortcaller(list_of_game_names)
         f.write("\n".join(list_of_game_names))
 
 
@@ -209,7 +209,7 @@ def searchgames(key):
     game_choice.destroy()
 
     new_options = searchgame(game_search.get().lower())
-    quicksortcaller(new_options)
+    AI.quicksortcaller(new_options)
 
     game_name.set(new_options[0])
     game_choice = OptionMenu(root, game_name, *new_options)
@@ -225,6 +225,39 @@ def searchgame(query):
     if len(games) < 1:
         return ["No Results Match Your Query"]
     return games
+
+
+def gamestatistics():
+    root = Tk()
+
+    window_width = 625
+    window_height = 625
+
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+
+    center_x = int(screen_width / 2 - window_width / 2)
+    center_y = int(screen_height / 2 - window_height / 2)
+
+    # Set menu in the middle of screen
+    root.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
+    Label(root, text="Game statistics:").place(x=30, y=10)
+    Label(root, text=f"amount of games: {AI.allgameslength()}").place(x=30, y=30)
+
+    Hatedgame = AI.hatedgame()
+    Label(root, text=f"Most hated game: {Hatedgame[1]} ({Hatedgame[0]} negative reviews)").place(x=30, y=50)
+
+    lovegame = AI.lovedgame()
+    Label(root, text=f"Most loved game: {lovegame[1]} ({lovegame[0]} positive reviews)").place(x=30, y=70)
+
+    playedgame = AI.mostplayedgame()
+    Label(root, text=f"most played game: {playedgame[1]} ({playedgame[0]} hours in total)").place(x=30, y=90)
+
+    leastplayedgame = AI.leastplayedgame()
+    Label(root, text=f"least played game: {leastplayedgame[1]} ({leastplayedgame[0]} hours in total)").place(x=30, y=110)
+
+    expensivegame = AI.mostexpensivegame()
+    Label(root, text=f"Most expensive game: {expensivegame[1]} (a total cost of {expensivegame[0]},- euro)").place(x=30, y=130)
 
 
 steam_friends = get_steam_friends()
