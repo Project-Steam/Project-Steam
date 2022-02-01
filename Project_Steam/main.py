@@ -119,7 +119,6 @@ def create_calander():
 
     # Friends
     global friend_name
-    quicksortcaller(steam_friends)
     friend_name = StringVar(root)
     friend_name.set(steam_friends[0])
 
